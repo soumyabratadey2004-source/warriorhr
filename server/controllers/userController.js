@@ -44,6 +44,7 @@ const userLogin = async (req, res) => {
 
 const userRegister = async (req, res) => {
     try {
+        console.log('Registration request body:', req.body);
         const { FullName, Email, Password } = req.body;
         const existingUser = await User.findOne({ Email });
         if (existingUser) {
@@ -73,7 +74,11 @@ const userRegister = async (req, res) => {
 
     } catch (error) {
         console.error('Registration error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({
+            success: false,
+            message: 'Server error',
+            error: error.message // Exposing message for debugging
+        });
     }
 };
 

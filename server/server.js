@@ -4,7 +4,9 @@ const app = express();
 const cors = require('cors');
 const corsOptions = require('./middleware/Cors');
 const connectDB = require('./configs/db');
-connectDB();
+connectDB().catch(err => {
+    console.error('Failed to connect to database on startup:', err.message);
+});
 app.use(cors(corsOptions));
 app.use(express.json());
 
