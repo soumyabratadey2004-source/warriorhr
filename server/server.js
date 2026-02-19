@@ -1,11 +1,13 @@
-const dotenv = require('dotenv').config({ override: true });
+const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const corsOptions = require('./middleware/Cors');
 const connectDB = require('./configs/db');
 connectDB();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+
 const userRoutes = require('./Routes/userRoutes');
 const adminRoutes = require('./Routes/adminRoutes');
 
